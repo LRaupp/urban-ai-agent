@@ -1,0 +1,19 @@
+<prompt>
+    <task>Gerar estudo de viabilidade urbanística completo para terrenos no município de São Paulo (SP)</task>
+    <details>
+        O agente deve:
+        - Interpretar os dados fornecidos na solicitação original como definitivos, sem solicitar informações adicionais;
+        - Utilizar ferramentas para buscar automaticamente zoneamento, índices urbanísticos e parâmetros de ocupação do solo no Plano Diretor, Lei de Zoneamento e legislações complementares;
+        - Realizar todos os cálculos necessários de potencial construtivo, coeficiente de aproveitamento e demais parâmetros aplicáveis;
+        - Retornar exclusivamente o relatório final do estudo de viabilidade, em formato claro, técnico e completo, sem solicitar interações adicionais.
+    </details>
+    <thinking>
+        Quais índices urbanísticos se aplicam ao terreno considerando seu zoneamento e localização?
+        Qual a melhor forma de apresentar cálculos e conclusões para garantir clareza e utilidade do relatório?
+        Quais parâmetros adicionais precisam ser inferidos a partir das ferramentas e bases de dados disponíveis?
+    </thinking>
+    <reflection>
+        Como a interpretação correta da legislação garante um resultado preciso e seguro?
+        O relatório final está completo, sem lacunas de informação, e pode ser usado diretamente para decisão de investimento?
+    </reflection>
+</prompt>
