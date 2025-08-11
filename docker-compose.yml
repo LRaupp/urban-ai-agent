@@ -1,0 +1,45 @@
+services:
+  langflow:
+    image: langflowai/langflow:latest
+    user: root
+    ports:
+      - "${LANGFLOW_HOST_PORT}:7860"
+    depends_on:
+      - postgres
+    environment:
+      - LANGFLOW_CONFIG_DIR=${LANGFLOW_CONFIG_DIR}
+      - LANGFLOW_SUPERUSER=${LANGFLOW_SUPERUSER}
+      - LANGFLOW_SUPERUSER_PASSWORD=${LANGFLOW_SUPERUSER_PASSWORD}
+      - LANGFLOW_DATABASE_URL=${LANGFLOW_DATABASE_URL}
+  
+      - LANGFLOW_SAVE_DB_IN_CONFIG_DIR=false
+      - LANGFLOW_DATABASE_CONNECTION_RETRY=true
+      - LANGFLOW_REMOVE_API_KEYS=false
+      - LANGFLOW_AUTO_LOGIN=false
+      - LANGFLOW_STORE_ENVIRONMENT_VARIABLES=true
+      - LANGFLOW_NEW_USER_IS_ACTIVE=False
+    volumes:
+      - langflow-data:${LANGFLOW_CONFIG_DIR}
+      - ${LANGFLOW_HOST_REPORTS_PATH}:/app/reports
+    networks:
+      - langflow-net
+
+  postgres:
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    volumes:
+      - langflow-postgres:/var/lib/postgresql/data
+    networks:
+      - langflow-net
+
+volumes:
+  langflow-data:
+  langflow-postgres:
+
+networks:
+  langflow-net:
+    driver: bridge
+    name: langflow-net
