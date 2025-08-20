@@ -1,6 +1,6 @@
 services:
   langflow:
-    image: langflowai/langflow:latest
+    build: .
     user: root
     ports:
       - "${LANGFLOW_HOST_PORT}:7860"
