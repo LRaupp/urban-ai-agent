@@ -1,0 +1,445 @@
+{
+  "id": "cdd93933-e2e8-4b56-921a-a7e7976e1219",
+  "revision": 0,
+  "last_node_id": 10,
+  "last_link_id": 12,
+  "nodes": [
+    {
+      "id": 2,
+      "type": "CLIPTextEncode",
+      "pos": [
+        953.3369399999996,
+        -314.8106500000002
+      ],
+      "size": [
+        400,
+        200
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            6
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "arquitetura fotorrealista, iluminação ultra realista, reflexos com ray tracing, iluminação global, materiais PBR, concreto realista, fachada de vidro detalhada, esquadrias metálicas realistas, sombras suaves, céu HDRI, luz cinematográfica, profundidade de campo, lente 85mm, superfícies detalhadas, textura real do solo, vegetação realista, luz volumétrica, pessoas realistas desfoque de movimento, reflexos no piso, materiais fisicamente corretos, oclusão de ambiente, luz solar quente fim de tarde, fotografia arquitetônica profissional, estilo Leica, contexto urbano, edifício moderno, lens flare sutil, resolução ultra alta, foco preciso\n"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "CLIPTextEncode",
+      "pos": [
+        960.7789800000003,
+        -58.700140000000225
+      ],
+      "size": [
+        400,
+        200
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            7
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "distorções, pessoas deformadas, objetos flutuando, texturas borradas, vidros deformados, sombras irreais, reflexos incorretos, artefatos de IA, ruído digital, superfícies derretidas, linhas irregulares, perspectiva errada, vegetação artificial, cores super saturadas, iluminação falsa, borrões, padrões repetitivos, proporções irreais, janelas tortas, fachada duplicada, elementos surrealistas, estilo cartunesco, efeito pintura, excesso de granulação, brilho exagerado, tons neon, personagens, texto, logos, glitch, sombras fora da direção do sol, aparência artificial, materiais irreais, baixa resolução, fundos distorcidos, textura repetida, edges serrilhadas, modelagem incompleta, reflexos impossíveis\n"
+      ]
+    },
+    {
+      "id": 1,
+      "type": "CheckpointLoaderSimple",
+      "pos": [
+        491,
+        266.5
+      ],
+      "size": [
+        270,
+        98
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            5
+          ]
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            1,
+            2
+          ]
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            3,
+            11
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CheckpointLoaderSimple"
+      },
+      "widgets_values": [
+        "sd_xl_base_1.0.safetensors"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "KSampler",
+      "pos": [
+        1574.9000099999976,
+        153.4525099999999
+      ],
+      "size": [
+        270,
+        262
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 5
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 6
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 7
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 4
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            10
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSampler"
+      },
+      "widgets_values": [
+        0,
+        "fixed",
+        20,
+        8,
+        "euler",
+        "simple",
+        1
+      ]
+    },
+    {
+      "id": 4,
+      "type": "VAEEncode",
+      "pos": [
+        963.1784599999993,
+        376.2594900000001
+      ],
+      "size": [
+        140,
+        46
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "pixels",
+          "type": "IMAGE",
+          "link": 8
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            4
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEEncode"
+      }
+    },
+    {
+      "id": 6,
+      "type": "LoadImage",
+      "pos": [
+        525.3181799999986,
+        470.73568500000164
+      ],
+      "size": [
+        270,
+        314.0000000000001
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            8
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "mies.png",
+        "image"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "VAEDecode",
+      "pos": [
+        1897.3775315176613,
+        162.94130922614613
+      ],
+      "size": [
+        140,
+        46
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 10
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 11
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            12
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      }
+    },
+    {
+      "id": 10,
+      "type": "PreviewImage",
+      "pos": [
+        2146.2859935846504,
+        165.4415720642702
+      ],
+      "size": [
+        140,
+        26
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 12
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      1,
+      2,
+      0,
+      "CLIP"
+    ],
+    [
+      2,
+      1,
+      1,
+      3,
+      0,
+      "CLIP"
+    ],
+    [
+      3,
+      1,
+      2,
+      4,
+      1,
+      "VAE"
+    ],
+    [
+      4,
+      4,
+      0,
+      5,
+      3,
+      "LATENT"
+    ],
+    [
+      5,
+      1,
+      0,
+      5,
+      0,
+      "MODEL"
+    ],
+    [
+      6,
+      2,
+      0,
+      5,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      7,
+      3,
+      0,
+      5,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      8,
+      6,
+      0,
+      4,
+      0,
+      "IMAGE"
+    ],
+    [
+      10,
+      5,
+      0,
+      8,
+      0,
+      "LATENT"
+    ],
+    [
+      11,
+      1,
+      2,
+      8,
+      1,
+      "VAE"
+    ],
+    [
+      12,
+      8,
+      0,
+      10,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "title": "Seleção do Modelo",
+      "bounding": [
+        461,
+        174,
+        348,
+        235
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "flags": {}
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.6209213230591556,
+      "offset": [
+        175.15853775534742,
+        473.1180885757292
+      ]
+    },
+    "frontendVersion": "1.28.8"
+  },
+  "version": 0.4
+}
