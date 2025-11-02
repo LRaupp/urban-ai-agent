@@ -2,14 +2,14 @@ import requests
 import os
 
 # Alterar para a sua chave de API
-api_key = "sk-kFcxmX6Kq-KFMr2En_uRdN3wzQuu2Ted3SOmbysE43c"
+api_key = "sk-Eqj7t6vKap9G9BWUNggVyiIHQMLZslF-RdNvBbwXkeY"
 # Alterar para o ID do fluxo criado no Langflow
-url = "http://localhost:7860/api/v1/run/128d0325-0fa5-4366-974d-fff34a00f144"
+url = "http://localhost:7860/api/v1/run/205fcaf2-61e4-4aea-ab4e-ea2c87e99308"
 
 payload = {
     "output_type": "text",
     "input_type": "text",
-    "input_value": "faça um estudo de viabilidade para um terreno na zona zeu com 1300m2, 15000 valor de venda, 2000 valor de outorga, na rua osvaldo arannha"
+    "input_value": "O que é outorga onerosa?"
 }
 
 headers = {
@@ -20,8 +20,9 @@ headers = {
 try:
     response = requests.request("POST", url, json=payload, headers=headers)
     response.raise_for_status() 
-
-    print(response.text)
+    response_data = response.json()
+    output = response_data.get("outputs")[0]["outputs"][0]["results"]["text"]["data"]["text"]
+    print(output)
 
 except requests.exceptions.RequestException as e:
     print(f"Error making API request: {e}")
